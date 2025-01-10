@@ -160,11 +160,7 @@ function parseParametersObject(parametersObject) {
         return parametersObject;
     }
 
-    try {
-        return JSON.parse(parametersObject);
-    } catch (e) {
-        return {};
-    }
+    return JSON.parse(parametersObject);
 }
 
 function sendTrackRequest() {
