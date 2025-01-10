@@ -155,6 +155,18 @@ function sendSetProfileRequest() {
     }, {headers: {'Content-Type': 'application/json'}, method: 'POST'}, JSON.stringify([profileBody]));
 }
 
+function parseParametersObject(parametersObject) {
+    if (typeof parametersObject !== 'string') {
+        return parametersObject;
+    }
+
+    try {
+        return JSON.parse(parametersObject);
+    } catch (e) {
+        return {};
+    }
+}
+
 function sendTrackRequest() {
     let postBody = {
         properties: {}
@@ -165,7 +177,8 @@ function sendTrackRequest() {
     }
 
     if (data.trackFromVariable && data.trackParametersObject) {
-        for (let key in data.trackParametersObject) {
+        const trackParametersObject = parseParametersObject(data.trackParametersObject);
+        for (let key in trackParametersObject) {
             postBody.properties[key] = data.trackParametersObject[key];
         }
     }
@@ -446,7 +459,7 @@ function getSearchEngine(referrer) {
 function random() {
     return generateRandom(1000000000000000, 10000000000000000)/10000000000000000;
   }
-  
+
 function UUID() {
     function s(n) { return h((random() * (1<<(n<<2)))^getTimestamp()).slice(-n); }
     function h(n) { return (n|0).toString(16); }
