@@ -175,7 +175,7 @@ function sendTrackRequest() {
     if (data.trackFromVariable && data.trackParametersObject) {
         const trackParametersObject = parseParametersObject(data.trackParametersObject);
         for (let key in trackParametersObject) {
-            postBody.properties[key] = data.trackParametersObject[key];
+            postBody.properties[key] = trackParametersObject[key];
         }
     }
 
